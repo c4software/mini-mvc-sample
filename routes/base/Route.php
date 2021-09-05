@@ -59,7 +59,7 @@ class Route
         $target = $isBrowser ? Route::GetCurrentPath() : Route::GetCommands();
 
         // Gestion des paramètres
-        $args = $isBrowser ? $_GET : Route::getArgs();
+        $args = $isBrowser ? $_REQUEST : Route::getArgs();
 
         // Est-ce que la page demandée est autorisée.
         if (array_key_exists($target, Route::$routes)) {
