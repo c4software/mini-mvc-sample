@@ -65,6 +65,7 @@ class Route
 
         // Gestion des paramètres
         $args = $isBrowser ? $_REQUEST : Route::getArgs();
+        unset($args["path"]); // Fix problème Apache Windows + Xampp, la réécriture d'URL contient également le path.
 
         // Est-ce que la page demandée est autorisée.
         if (array_key_exists($target, Route::$routes)) {
