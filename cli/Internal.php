@@ -23,7 +23,7 @@ class Internal
         }
     }
 
-    public function createController($name = "")
+    public function createController($name = "", $type = "Web")
     {
         if ($name == "") {
             echo "Vous devez fournir un nom. (Ex. php index.php controller:create MonController)\r\n";
@@ -35,9 +35,9 @@ class Internal
         $content = "<?php
 namespace controllers;
 
-use controllers\base\Web;
+use controllers\base\\${type};
 
-class $targetName extends Web
+class $targetName extends ${type}
 {
 }";
 
