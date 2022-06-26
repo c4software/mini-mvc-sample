@@ -6,10 +6,13 @@ use models\base\Migration;
 
 class Internal
 {
-
     private function cleanName($name)
     {
         return ucfirst(str_replace(' ', '_', basename($name)));
+    }
+
+    public function serve($port = 9000){
+        exec("php -S localhost:${port}");
     }
 
     public function dbMigrate()
