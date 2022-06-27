@@ -37,7 +37,7 @@ class SQL implements IDatabase
      */
     public function getOne($id)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey}; = ? LIMIT 1");
+        $stmt = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         $stmt->execute([$id]);
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -49,7 +49,7 @@ class SQL implements IDatabase
      */
     public function deleteOne($id)
     {
-        $stmt = $this->pdo->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey}; = ? LIMIT 1");
+        $stmt = $this->pdo->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         return $stmt->execute([$id]);
     }
 
