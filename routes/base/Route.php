@@ -105,7 +105,7 @@ class Route
         $target = $isBrowser ? Route::GetCurrentPath() : Route::GetCommands();
 
         // Gestion des paramètres
-        $args = $isBrowser ? $_REQUEST : Route::getArgs();
+        $args = $isBrowser ? array_merge($_GET, $_POST) : Route::getArgs();
         unset($args["path"]);
 
         // Trouve la route avec le bon pattern (expression régulière avec gestion des paramètres dans l'URL)
