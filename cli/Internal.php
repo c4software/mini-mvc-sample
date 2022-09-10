@@ -12,7 +12,7 @@ class Internal
     }
 
     public function serve($port = 9000){
-        exec("php -S localhost:${port}");
+        exec("php -S localhost:${port} -t . index.php");
     }
 
     public function dbMigrate()
