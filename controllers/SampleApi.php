@@ -6,8 +6,8 @@ use controllers\base\Api;
 
 class SampleApi extends Api
 {
-    function sample()
+    function sample(): string
     {
-        echo json_encode(array("Ceci est un exemple", "de", "tableau"));
+        return json_encode(array("Ceci est un exemple", "de", "tableau"));
     }
 }

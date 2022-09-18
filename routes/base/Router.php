@@ -9,15 +9,20 @@ use utils\CliUtils;
 
 class Router extends Route
 {
+
+    protected Api $api;
+    protected Web $web;
+    protected Cli $cli;
+
     function __construct()
     {
         // Register Route
-        new Api();
-        new Web();
+        $this->api = new Api();
+        $this->web = new Web();
 
         // Load CLI Command only if process is start in CLI (not in browser)
         if (!CliUtils::isBrowser()) {
-            new Cli();
+            $this->cli = new Cli();
         }
     }
 }

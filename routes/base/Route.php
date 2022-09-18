@@ -2,10 +2,14 @@
 
 namespace routes\base;
 
+use controllers\base\Web;
 use utils\CliUtils;
 
 class Route
 {
+    /**
+     * @var array<Web> Liste des méthodes accessible dans l'application
+     */
     static array $routes = array();
 
     static function Add($path, $callback): void
@@ -55,7 +59,7 @@ class Route
         return htmlspecialchars($target, ENT_QUOTES, 'UTF-8');
     }
 
-    static private function GetCommands()
+    private function GetCommands()
     {
         global $argv, $argc;
         if ($argc > 1) {
@@ -65,7 +69,7 @@ class Route
         }
     }
 
-    static private function GetArgs(): array
+    private function GetArgs(): array
     {
         global $argv, $argc;
         if ($argc > 2) {
@@ -75,7 +79,7 @@ class Route
         }
     }
 
-    static private function searchForMatchingRoute($target): array
+    private function searchForMatchingRoute($target): array
     {
         /**
          * Cette méthode recherche dans la liste des routes (clefs).
@@ -97,7 +101,7 @@ class Route
         return [];
     }
 
-    static function LoadRequestedPath(): void
+    function LoadRequestedPath(): void
     {
         $isBrowser = CliUtils::isBrowser();
 
@@ -123,7 +127,7 @@ class Route
 
             // Appel dynamique de la méthode souhaitée (déclaré dans les routes)
             // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET
-            call_user_func_array(Route::$routes[$match], array_values($args));
+            echo call_user_func_array(Route::$routes[$match], array_values($args));
         } else if ($isBrowser) {
             // Non affichage d'une 404.
             http_response_code(404);

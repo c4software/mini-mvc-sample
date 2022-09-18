@@ -6,32 +6,37 @@ namespace utils;
 
 class SessionHelpers
 {
-    static function init()
+    public function __construct()
+    {
+        SessionHelpers::init();
+    }
+
+    static function init(): void
     {
         session_start();
     }
 
-    static function login($user)
+    static function login($equipe): void
     {
-        $_SESSION['USER'] = $user;
+        $_SESSION['LOGIN'] = $equipe;
     }
 
-    static function logout()
+    static function logout(): void
     {
-        unset($_SESSION['USER']);
+        unset($_SESSION['LOGIN']);
     }
 
     static function getConnected()
     {
         if (SessionHelpers::isLogin()) {
-            return $_SESSION['USER'];
+            return $_SESSION['LOGIN'];
         } else {
             return array();
         }
     }
 
-    static function isLogin()
+    static function isLogin(): bool
     {
-        return isset($_SESSION['USER']);
+        return isset($_SESSION['LOGIN']);
     }
 }

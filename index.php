@@ -5,7 +5,16 @@ use utils\SessionHelpers;
 
 include("autoload.php");
 
-SessionHelpers::init();
+class EntryPoint{
+    private Router $router;
+    private SessionHelpers $sessionHelpers;
 
-$router = new Router();
-$router->LoadRequestedPath();
+    function __construct(){
+        $this->sessionHelpers = new SessionHelpers();
+
+        $this->router = new Router();
+        $this->router->LoadRequestedPath();
+    }
+}
+
+new EntryPoint();

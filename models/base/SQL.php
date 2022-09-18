@@ -2,44 +2,65 @@
 
 namespace models\base;
 
+use PDO;
+
 class SQL implements IDatabase
 {
     protected $tableName = '';
     protected $primaryKey = '';
 
     /**
-     * @var $pdo \PDO
+     * @var $pdo PDO
      */
-    protected $pdo;
+    private static $pdo;
 
-    function __construct($tableName, $primaryKey = 'id')
+    /**
+     * @return PDO
+     */
+    public static function getPdo(): PDO
     {
-        $this->pdo = Database::connect();
+        if (SQL::$pdo == null) {
+            SQL::$pdo = Database::connect();
+        }
+
+        return self::$pdo;
+    }
+
+    /**
+     * @param String $tableName Nom de la table
+     * @param String $primaryKey Clé primaire de la table
+     */
+    function __construct(string $tableName, string $primaryKey = 'id')
+    {
+        if (SQL::$pdo == null) {
+            SQL::$pdo = Database::connect();
+        }
+
         $this->tableName = $tableName;
         $this->primaryKey = $primaryKey;
     }
 
     /**
      * Retourne l'ensemble des enregistrements présent en base de données (pour la table $tableName)
-     * @return array
+     * @return array|null
      */
-    public function getAll()
+    public function getAll(): array|null
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM {$this->tableName};");
+        $stmt = SQL::$pdo->prepare("SELECT * FROM {$this->tableName};");
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Permet la récupération d'un enregistrement en base de données
-     * @param $id
-     * @return mixed
+     * @param String $id
+     * @return array|null
      */
-    public function getOne($id)
+    public function getOne(string $id): array|null
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
+        $stmt = SQL::$pdo->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         $stmt->execute([$id]);
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -47,9 +68,9 @@ class SQL implements IDatabase
      * @param $id
      * @return bool
      */
-    public function deleteOne($id)
+    public function deleteOne(string $id): bool
     {
-        $stmt = $this->pdo->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
+        $stmt = SQL::$pdo->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         return $stmt->execute([$id]);
     }
 
@@ -59,7 +80,7 @@ class SQL implements IDatabase
      * @param array $data
      * @return bool
      */
-    public function updateOne($id, $data = array())
+    public function updateOne(string $id, array $data = array()): bool
     {
         $query = "UPDATE {$this->tableName} SET ";
 
@@ -70,7 +91,7 @@ class SQL implements IDatabase
 
         $query .= " WHERE {$this->primaryKey} = :id";
 
-        $stmt = $this->pdo->prepare($query);
+        $stmt = SQL::$pdo->prepare($query);
         return $stmt->execute(array_merge(["id" => $id], $data));
     }
 }

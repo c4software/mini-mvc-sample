@@ -4,8 +4,9 @@ namespace utils;
 
 class Template
 {
-    static function render($filepath, $variables = array(), $withHeader = true): void
+    static function render($filepath, $variables = array(), $withHeader = true): string
     {
+        ob_start();
         // Déclare l'ensemble des variables présent dans la variable $variales pour
         // les rendres accessibles directement. Exemple :
         // array("nom" => "Brosseau", "prenom" => "Valentin") va générer
@@ -15,6 +16,8 @@ class Template
         if ($withHeader) Template::header();
         include($filepath);
         if ($withHeader) Template::footer();
+
+        return ob_get_clean();
     }
 
     static private function header(): void

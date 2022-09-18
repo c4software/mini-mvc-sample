@@ -7,8 +7,8 @@ use utils\Template;
 
 class SampleWeb extends Web
 {
-    function home()
+    function home(): string
     {
-        Template::render("views/global/home.php", array("date" => date("d-m-Y à H:i")));
+        return Template::render("views/global/home.php", array("date" => date("d-m-Y à H:i")));
     }
 }
