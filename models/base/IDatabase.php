@@ -12,9 +12,9 @@ interface IDatabase
 {
     public function getAll();
 
-    public function getOne($id);
+    public function getOne(String $id);
 
-    public function deleteOne($id);
+    public function deleteOne(String $id);
 
-    public function updateOne($id, $data);
+    public function updateOne(String $id, array $data);
 }

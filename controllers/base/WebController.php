@@ -2,7 +2,7 @@
 
 namespace controllers\base;
 
-class Web implements IBase
+class WebController implements IBase
 {
     function redirect($to){
         header("Location: $to");
