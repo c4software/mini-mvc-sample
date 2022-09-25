@@ -2,13 +2,13 @@
 
 namespace routes\base;
 
-use controllers\base\Web;
+use controllers\base\WebController;
 use utils\CliUtils;
 
 class Route
 {
     /**
-     * @var array<Web> Liste des méthodes accessible dans l'application
+     * @var array<WebController> Liste des méthodes accessible dans l'application
      */
     static array $routes = array();
 

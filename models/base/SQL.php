@@ -10,9 +10,9 @@ class SQL implements IDatabase
     protected $primaryKey = '';
 
     /**
-     * @var $pdo PDO
+     * @var $pdo PDO|null
      */
-    private static $pdo;
+    private static ?PDO $pdo = null;
 
     /**
      * @return PDO
@@ -32,10 +32,6 @@ class SQL implements IDatabase
      */
     function __construct(string $tableName, string $primaryKey = 'id')
     {
-        if (SQL::$pdo == null) {
-            SQL::$pdo = Database::connect();
-        }
-
         $this->tableName = $tableName;
         $this->primaryKey = $primaryKey;
     }
@@ -46,7 +42,7 @@ class SQL implements IDatabase
      */
     public function getAll(): array|null
     {
-        $stmt = SQL::$pdo->prepare("SELECT * FROM {$this->tableName};");
+        $stmt = SQL::getPdo()->prepare("SELECT * FROM {$this->tableName};");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -58,7 +54,7 @@ class SQL implements IDatabase
      */
     public function getOne(string $id): array|null
     {
-        $stmt = SQL::$pdo->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
+        $stmt = SQL::getPdo()->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -70,7 +66,7 @@ class SQL implements IDatabase
      */
     public function deleteOne(string $id): bool
     {
-        $stmt = SQL::$pdo->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
+        $stmt = SQL::getPdo()->prepare("DELETE FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         return $stmt->execute([$id]);
     }
 
@@ -91,7 +87,7 @@ class SQL implements IDatabase
 
         $query .= " WHERE {$this->primaryKey} = :id";
 
-        $stmt = SQL::$pdo->prepare($query);
+        $stmt = SQL::getPdo()->prepare($query);
         return $stmt->execute(array_merge(["id" => $id], $data));
     }
 }

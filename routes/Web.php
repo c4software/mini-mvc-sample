@@ -3,7 +3,7 @@
 namespace routes;
 
 use controllers\Account;
-use controllers\SampleWeb;
+use controllers\SampleWebController;
 use controllers\VideoWeb;
 use routes\base\Route;
 use utils\SessionHelpers;
@@ -12,7 +12,7 @@ class Web
 {
     function __construct()
     {
-        $main = new SampleWeb();
+        $main = new SampleWebController();
 
         Route::Add('/', [$main, 'home']);
 

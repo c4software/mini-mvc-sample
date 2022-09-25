@@ -2,10 +2,10 @@
 
 namespace controllers;
 
-use controllers\base\Web;
+use controllers\base\WebController;
 use utils\Template;
 
-class SampleWeb extends Web
+class SampleWebController extends WebController
 {
     function home(): string
     {

@@ -2,9 +2,9 @@
 
 namespace controllers;
 
-use controllers\base\Api;
+use controllers\base\ApiController;
 
-class SampleApi extends Api
+class SampleApiController extends ApiController
 {
     function sample(): string
     {

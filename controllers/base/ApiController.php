@@ -2,7 +2,7 @@
 
 namespace controllers\base;
 
-class Api implements IBase
+class ApiController implements IBase
 {
     function redirect($to)
     {
