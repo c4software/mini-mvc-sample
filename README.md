@@ -4,7 +4,7 @@ Cette structure est réalisée à des fins pédagogiques. Elle est un intermédi
 framework Laravel sur des bases de développement PHP connu.
 
 - [Document associé disponible ici](https://cours.brosseau.ovh/tp/php/mvc/tp1.html)
-- [Exemple de code utilisant cette structure](https://github.com/c4software/bts-sio/blob/master/.vuepress/public/demo/php/greta-tv/refactor-structure-mvc.zip?raw=true)
+- [Exemple de code utilisant cette structure](https://github.com/c4software/demo-structure-mvc-video/archive/refs/tags/1.0.zip)
 
 ---
 
