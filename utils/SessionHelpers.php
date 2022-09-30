@@ -16,7 +16,7 @@ class SessionHelpers
         session_start();
     }
 
-    static function login($equipe): void
+    static function login(mixed $equipe): void
     {
         $_SESSION['LOGIN'] = $equipe;
     }
@@ -26,7 +26,7 @@ class SessionHelpers
         unset($_SESSION['LOGIN']);
     }
 
-    static function getConnected()
+    static function getConnected(): mixed
     {
         if (SessionHelpers::isLogin()) {
             return $_SESSION['LOGIN'];

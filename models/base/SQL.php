@@ -44,19 +44,19 @@ class SQL implements IDatabase
     {
         $stmt = SQL::getPdo()->prepare("SELECT * FROM {$this->tableName};");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
      * Permet la récupération d'un enregistrement en base de données
      * @param String $id
-     * @return array|null
+     * @return \stdClass|null
      */
-    public function getOne(string $id): array|null
+    public function getOne(string $id): \stdClass|null
     {
         $stmt = SQL::getPdo()->prepare("SELECT * FROM {$this->tableName} WHERE {$this->primaryKey} = ? LIMIT 1");
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_OBJ);
     }
 
     /**
