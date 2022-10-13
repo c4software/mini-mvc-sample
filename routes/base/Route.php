@@ -122,12 +122,14 @@ class Route
             // Extraction des paramètres présent dans la route, pour les mettres
             // dans la liste des arguments passé à la méthode.
             foreach(array_keys($matches[1]) as $inPathParameters){
-                $args[$inPathParameters] = $matches[1][$inPathParameters][0];
+                if(is_string($inPathParameters)) {
+                    $args[$inPathParameters] = $matches[1][$inPathParameters][0];
+                }
             }
 
             // Appel dynamique de la méthode souhaitée (déclaré dans les routes)
             // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET
-            echo call_user_func_array(Route::$routes[$match], array_values($args));
+            echo call_user_func_array(Route::$routes[$match], $args);
         } else if ($isBrowser) {
             // Non affichage d'une 404.
             http_response_code(404);
