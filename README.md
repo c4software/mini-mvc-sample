@@ -34,6 +34,11 @@ php mvc controller:create NomDuControler
 php mvc serve
 ```
 
+## Déployer sur Apache ou Docker
+
+- [Déployer sur Apache](https://cours.brosseau.ovh/tp/ops/mini-mvc-sample/deployer-mini-mvc-sample.html)
+- [Déployer avec Docker](https://cours.brosseau.ovh/tp/ops/mini-mvc-sample/mini-mvc-sample-docker.html)
+
 ---
 
 Ce projet est réalisé à des fins pédagogiques. [Document associé disponible ici](https://cours.brosseau.ovh/tp/php/mvc/tp1.html)
