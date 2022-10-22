@@ -121,7 +121,7 @@ class Route
         if ($matches) {
 
             $match = $matches[0];
-            // Extraction des paramètres présent dans la route, pour les mettres
+            // Extraction des paramètres présents dans la route, pour les mettre
             // dans la liste des arguments passé à la méthode.
             foreach(array_keys($matches[1]) as $inPathParameters){
                 if(is_string($inPathParameters)) {
@@ -131,7 +131,7 @@ class Route
 
             // Obtention des paramètres réels de la méthode
             // Création d'un tableau d'argument qui sera passé à la méthode
-            // pour ne l'appeler qu'avec les paramètres nécessaire, ou null si pas dispo
+            // pour ne l'appeler qu'avec les paramètres nécessaires, ou null si pas dispo
             $refMeth = new ReflectionMethod(get_class(Route::$routes[$match][0]).'::'.Route::$routes[$match][1]);
             $callArgs = [];
             foreach($refMeth->getParameters() as $methParams){
@@ -146,7 +146,7 @@ class Route
 
 
             // Appel dynamique de la méthode souhaitée (déclaré dans les routes)
-            // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET
+            // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET, POST ou de l'URL
             echo call_user_func_array(Route::$routes[$match], $callArgs);
         } else if ($isBrowser) {
             // Non affichage d'une 404.
