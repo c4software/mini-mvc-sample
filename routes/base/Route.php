@@ -2,8 +2,10 @@
 
 namespace routes\base;
 
-use controllers\base\WebController;
 use utils\CliUtils;
+use ReflectionMethod;
+use routes\base\Route;
+use controllers\base\WebController;
 
 class Route
 {
@@ -127,9 +129,25 @@ class Route
                 }
             }
 
+            // Obtention des paramètres réels de la méthode
+            // Création d'un tableau d'argument qui sera passé à la méthode
+            // pour ne l'appeler qu'avec les paramètres nécessaire, ou null si pas dispo
+            $refMeth = new ReflectionMethod(get_class(Route::$routes[$match][0]).'::'.Route::$routes[$match][1]);
+            $callArgs = [];
+            foreach($refMeth->getParameters() as $methParams){
+                $callArgs[$methParams->getName()] = array_key_exists($methParams->getName(), $args) ? $args[$methParams->getName()] : null;
+                
+                // Si le paramètre est optionel, alors on le retire pour que 
+                // celui par défaut dans la méthode soit affiché.
+                if($methParams->isOptional() && $callArgs[$methParams->getName()] == null){
+                    unset($callArgs[$methParams->getName()]);
+                }
+            }
+
+
             // Appel dynamique de la méthode souhaitée (déclaré dans les routes)
             // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET
-            echo call_user_func_array(Route::$routes[$match], $args);
+            echo call_user_func_array(Route::$routes[$match], $callArgs);
         } else if ($isBrowser) {
             // Non affichage d'une 404.
             http_response_code(404);
