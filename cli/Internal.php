@@ -13,7 +13,7 @@ class Internal
 
     public function serve($port = 9000): void
     {
-        exec("php -S localhost:${port} -t . index.php");
+        exec("php -S localhost:{$port} -t . index.php");
     }
 
     public function dbMigrate(): void
@@ -36,9 +36,9 @@ class Internal
         $content = "<?php
 namespace controllers;
 
-use controllers\base\\${type};
+use controllers\base\\{$type};
 
-class $targetName extends ${type}
+class $targetName extends {$type}
 {
 }";
 
