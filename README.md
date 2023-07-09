@@ -3,6 +3,7 @@
 Cette structure est réalisée à des fins pédagogiques. Elle est un intermédiaire permettant d'introduire les concepts du
 framework Laravel sur des bases de développement PHP connu.
 
+- [Aide mémoire](https://cours.brosseau.ovh/cheatsheets/mini-mvc-sample/)
 - [Document associé disponible ici](https://cours.brosseau.ovh/tp/php/mvc/tp1.html)
 - [Exemple de code utilisant cette structure](https://github.com/c4software/demo-structure-mvc-video/)
 
