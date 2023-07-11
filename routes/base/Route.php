@@ -141,7 +141,7 @@ class Route
                     default:
                         throw new Exception("Unsupported method in router.");
                 }
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 die($e);
             }
 
@@ -150,7 +150,12 @@ class Route
             // pour ne l'appeler qu'avec les paramètres nécessaires, ou null si pas dispo
             $callArgs = [];
             foreach ($refMeth->getParameters() as $methParams) {
-                $callArgs[$methParams->getName()] = array_key_exists($methParams->getName(), $args) ? $args[$methParams->getName()] : null;
+
+                if ($isBrowser) {
+                    $callArgs[$methParams->getName()] = array_key_exists($methParams->getName(), $args) ? $args[$methParams->getName()] : null;
+                } else {
+                    $callArgs[$methParams->getName()] = $args[$methParams->getPosition()] ?? null;
+                }
 
                 // Si le paramètre est optionel, alors on le retire pour que
                 // celui par défaut dans la méthode soit affiché.
