@@ -9,9 +9,9 @@ class Api
 {
     function __construct()
     {
-        $videoApiController = new SampleApiController();
+        $exampleController = new SampleApiController();
 
-        Route::Add('/api/sample', [$videoApiController, 'sample']);
+        Route::Add('/api/sample', [$exampleController, 'sample']);
+        Route::Add('/api/sample/{param}', [$exampleController, 'sampleWithParam']);
     }
 }
-

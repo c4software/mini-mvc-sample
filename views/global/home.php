@@ -10,6 +10,7 @@
                 <ul>
                     <li><a href="/exemple">Lien d'exemple 1</a></li>
                     <li><a href="/exemple2/votre_parametre">Lien d'exemple 2</a></li>
+                    <li><a href="/exemple-formulaire">Exemple de formulaire</a></li>
                 </ul>
 
                 <div class="text-center">Page générée le <?= $date ?></div>

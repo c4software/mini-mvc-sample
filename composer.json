@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpmailer/phpmailer": "^v6.8.0"
+    }
+}
+  

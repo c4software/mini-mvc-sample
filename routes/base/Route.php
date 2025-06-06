@@ -133,7 +133,7 @@ class Route
                 $refMeth = null;
                 switch (gettype(Route::$routes[$match])) {
                     case 'array':
-                        $refMeth = new ReflectionMethod(get_class(Route::$routes[$match][0]) . '::' . Route::$routes[$match][1]);
+                        $refMeth = ReflectionMethod::createFromMethodName(get_class(Route::$routes[$match][0]) . '::' . Route::$routes[$match][1]);
                         break;
                     case 'object':
                         $refMeth = new ReflectionFunction(Route::$routes[$match]);
@@ -167,7 +167,6 @@ class Route
             // Appel dynamique de la méthode souhaitée (déclaré dans les routes)
             // Les paramètres de la méthode sont automatiquement remplis avec les valeurs en provenence du GET, POST ou de l'URL
             echo call_user_func_array(Route::$routes[$match], $callArgs);
-
         } else if ($isBrowser) {
             // Non affichage d'une 404.
             http_response_code(404);
