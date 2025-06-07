@@ -12,7 +12,10 @@ $FROM_EMAIL = getenv("MVC_FROM_EMAIL") ?: "contact@localhost.fr";
 return array(
     "DB_USER" => $DB_USER,
     "DB_PASSWORD" => $DB_PASSWORD,
-    "DB_DSN" => "mysql:host=$DB_SERVER;dbname=$DB_DATABASE;charset=utf8",
+    // Pour MySQL, utilisez la ligne suivante :
+    // "DB_DSN" => "mysql:host=$DB_SERVER;dbname=$DB_DATABASE;charset=utf8",
+    // Pour du SQLite, utilisez la ligne suivante :
+    "DB_DSN" => "sqlite:./data/database.db",
     "DEBUG" => $DEBUG,
     "MAIL_SERVER" => $MAIL_SERVER,
     "FROM_EMAIL" => $FROM_EMAIL,

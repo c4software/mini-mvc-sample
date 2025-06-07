@@ -11,6 +11,22 @@ class SessionHelpers
         SessionHelpers::init();
     }
 
+    static function setFlashMessage(string $key, mixed $value): void
+    {
+        $_SESSION['FLASH'][$key] = $value;
+    }
+
+    static function getFlashMessage(string $key): mixed
+    {
+        if (isset($_SESSION['FLASH'][$key])) {
+            $value = $_SESSION['FLASH'][$key];
+            unset($_SESSION['FLASH'][$key]); // Supprimer le message après l'avoir récupéré
+            return $value;
+        }
+
+        return null; // Retourne null si le message n'existe pas
+    }
+
     static function init(): void
     {
         session_start();
