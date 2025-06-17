@@ -13,7 +13,8 @@ class Internal
 
     public function serve($port = 9000): void
     {
-        exec("php -S localhost:{$port} -t . index.php");
+        echo "Serveur de développement démarré sur localhost:{$port} et sur l'ensemble des IPs de la machine.\r\n";
+        exec("php -S 0.0.0.0:{$port} -t . index.php");
     }
 
     public function dbMigrate(): void

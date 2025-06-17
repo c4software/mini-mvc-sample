@@ -43,11 +43,18 @@ class Route
         if (isset($_GET['path'])) {
             $target = $_GET['path'] == '' ? '/' : $_GET['path'];
         } else {
-            /* Gestion des sous dossiers comme bath path */
-            if (dirname($_SERVER['SCRIPT_NAME']) != "/") {
-                $target = str_replace(dirname($_SERVER['SCRIPT_NAME']), "", $_SERVER['REQUEST_URI']);
+            // if PHP 8.4
+            error_log(PHP_MAJOR_VERSION . " - " . PHP_MINOR_VERSION);
+            if (PHP_MAJOR_VERSION >= 8 && PHP_MINOR_VERSION >= 4) {
+                /* Gestion des sous dossiers comme bath path */
+                if (dirname($_SERVER['SCRIPT_NAME']) != "/") {
+                    $target = str_replace(dirname($_SERVER['SCRIPT_NAME']), "", $_SERVER['REQUEST_URI']);
+                } else {
+                    $target = $_SERVER["REQUEST_URI"];
+                }
             } else {
-                $target = $_SERVER["REQUEST_URI"];
+                // PHP 8.3 and below
+                $target = $_SERVER['REQUEST_URI'];
             }
 
             $target = parse_url($target, PHP_URL_PATH);
